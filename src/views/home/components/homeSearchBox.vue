@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="location">
-      <div class="city" @click="cityClick">广州</div>
+      <div class="city" @click="cityClick">{{ cityStore.currentCity.cityName }}</div>
       <div class="position" @click="positionClick">
         <span class="text">我的位置</span>
         <img src="@/assets/img/home/icon_location.png">
@@ -11,9 +11,11 @@
 </template>
 
 <script setup>
+import useCityStore from "@/store/modules/city";
 import { useRouter } from "vue-router"
 
 const router = useRouter()
+const cityStore = useCityStore()
 
 // 获取城市
 const cityClick = () => {
