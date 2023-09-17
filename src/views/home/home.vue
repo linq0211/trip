@@ -5,24 +5,63 @@
       <img src="@/assets/img/home/banner.webp">
     </div>
     <home-search-box></home-search-box>
-    
+    <home-category></home-category>
+    <div class="searchBar" v-if="isShowSearchBar">
+      <search-bar></search-bar>
+    </div>
+    <home-content></home-content>
   </div>
 </template>
 
 <script setup>
-  import homeSearchBox from './components/homeSearchBox.vue';
-  import homeNavbar from './components/homeNavbar.vue';
+  import homeSearchBox from './cpns/homeSearchBox.vue'
+  import homeNavbar from './cpns/homeNavbar.vue'
   import useHomeStore from "@/store/modules/home"
+  import homeCategory from "./cpns/homeCategory.vue"
+  import homeContent from './cpns/homeContent.vue'
+  import useScroll from '@/hooks/useScroll'
+  import searchBar from '@/components/search-bar/search-bar.vue'
+  import { computed, watch } from 'vue'
 
+  // 发送首页的网络请求
   const homestore = useHomeStore()
   homestore.fetchHotSuggests()
+  homestore.fetchCategories()
+  homestore.fetchHouseList()
+
+  // 监听window窗口滚动
+  const { isReachBottom, scrollTop } = useScroll()
+  watch(isReachBottom, (newValue) => {
+    if (newValue) {
+      homestore.fetchHouseList().then(res => {
+        isReachBottom.value = false
+      })
+    }
+  })
+
+  // 搜索框
+  const isShowSearchBar = computed(() => {
+    return scrollTop.value >= 360
+  })
+
 </script>
 
 <style lang="less" scoped>
-  .banner {
+.home {
+  padding-bottom: 60px;
+}
+.banner {
     img {
       width: 100%;
     }
   }
-  
+.searchBar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 16px 10px 16px;
+  background-color: #fff;
+}
 </style>

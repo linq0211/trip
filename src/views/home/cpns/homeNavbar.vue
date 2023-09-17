@@ -19,8 +19,8 @@
     
     .text {
       color: var(--primary-color);
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 </style>

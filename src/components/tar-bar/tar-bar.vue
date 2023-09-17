@@ -1,6 +1,6 @@
 <template>
   <div class="tar-bar">
-    <van-tabbar v-model="currentIndex" active-color="#ff9854">
+    <van-tabbar v-model="currentIndex" active-color="#ff9854" route>
       <template v-for="(item, index) in itemData" :key="item">
         <van-tabbar-item icon="home-o" :to="item.path">
           <span>{{ item.text }}</span>
@@ -11,24 +11,13 @@
         </van-tabbar-item>
       </template>
     </van-tabbar>
-    <!-- <template v-for="(item, index) in itemData" :key="item">
-      <div
-         class="tar-bar-item"
-         :class="{ active: currentIndex == index }"
-         @click="itemClick(index, item)"
-      >
-        <img v-if="currentIndex !== index" :src="getAssetImg(item.image)">
-        <img v-else :src="getAssetImg(item.imageActive)">
-        <span class="text">{{ item.text }}</span>
-      </div>
-    </template> -->
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { getAssetImg } from "@/utils/load-asset"
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 const itemData = [
   { text: "首页", image: "tabbar/tab_home.png", imageActive: "tabbar/tab_home_active.png", path: "/home" },
@@ -37,13 +26,15 @@ const itemData = [
   { text: "消息", image: "tabbar/tab_message.png", imageActive: "tabbar/tab_message.png", path: "/message" }
 ]
 
+// 默认索引bug解决
+const route = useRoute()
 const currentIndex = ref(0)
-
-const router = useRouter()
-const itemClick = (index, item) => {
+watch(route, (newRoute) => {
+  const index = itemData.findIndex(item => item.path === newRoute.path)
+  if (index === -1) return
   currentIndex.value = index
-  router.push(item.path)
-}
+})
+
 
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="item location">
-      <div class="city" @click="cityClick">{{ cityStore.currentCity.cityName }}</div>
+      <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
       <div class="position" @click="positionClick">
         <span class="text">我的位置</span>
         <img src="@/assets/img/home/icon_location.png">
@@ -11,13 +11,13 @@
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{ startDate }}</span>
+          <span class="time">{{ startDateStr }}</span>
         </div>
         <div class="stay">共{{ stayCount }}晚</div>
       </div>
       <div class="end">
         <span class="tip">离店</span>
-        <span class="time">{{ endDate  }}</span>
+        <span class="time">{{ endDateStr }}</span>
       </div>
     </div>
     <van-calendar 
@@ -51,16 +51,19 @@
 
 <script setup>
 import useCityStore from "@/store/modules/city";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router"
 import { formatMonthDay, getDiffDays } from "@/utils/formatMonthDay"
 import useHomeStore from "@/store/modules/home";
 import { storeToRefs } from "pinia";
 
+// 获取路由和状态管理
 const router = useRouter()
+const homestore = useHomeStore()
 
 // city
 const cityStore = useCityStore()
+const { currentCity } = storeToRefs(cityStore)
 // 获取城市
 const cityClick = () => {
   router.push("/city")
@@ -79,26 +82,35 @@ const positionClick = () => {
 }
 
 // live
-const nowDate = new Date()
-const nextDate = new Date().setTime(nowDate.getTime()+24*60*60*1000)
-const startDate = ref(formatMonthDay(nowDate))
-const endDate = ref(formatMonthDay(nextDate))
+const { startDate, endDate } = storeToRefs(homestore)
+const startDateStr = computed(() => formatMonthDay(startDate.value))
+const endDateStr = computed(() => formatMonthDay(endDate.value))
 const showCalendar = ref(false)
-const stayCount = ref(getDiffDays(nowDate, nextDate))
-
+const stayCount = ref(getDiffDays(startDate.value, endDate.value))
 const onConfirm = (value) => {
-  // console.log(value)
   const selectStartDate = value[0]
   const selectEndDate = value[1]
-  startDate.value = formatMonthDay(selectStartDate)
-  endDate.value = formatMonthDay(selectEndDate)
+  startDate.value = selectStartDate
+  endDate.value = selectEndDate
   stayCount.value = getDiffDays(selectStartDate, selectEndDate)
   showCalendar.value = false
 }
 
 // 热门建议
-const homestore = useHomeStore()
 const { hotSuggests } = storeToRefs(homestore)
+
+// 开始搜索
+const startSearch = () => {
+  router.push("/search")
+  // router.push({
+  //   path: "/search",
+  //   query: {
+  //     startDate: startDate.value,
+  //     endDate: endDate.value,
+  //     currentCity: currentCity.value.cityName
+  //   }
+  // })
+}
 
 </script>
 
