@@ -2,7 +2,7 @@
   <div class="house-item">
     <div class="item-inner">
       <div class="cover">
-        <img :src="itemData.image.url">
+        <img :src="itemData.image?.url">
       </div>
       <div class="info">   
         <div class="summary">{{ itemData.summaryText }}</div>

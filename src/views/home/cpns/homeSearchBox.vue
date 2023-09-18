@@ -102,14 +102,6 @@ const { hotSuggests } = storeToRefs(homestore)
 // 开始搜索
 const startSearch = () => {
   router.push("/search")
-  // router.push({
-  //   path: "/search",
-  //   query: {
-  //     startDate: startDate.value,
-  //     endDate: endDate.value,
-  //     currentCity: currentCity.value.cityName
-  //   }
-  // })
 }
 
 </script>

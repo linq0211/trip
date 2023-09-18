@@ -9,11 +9,10 @@ export default function useScroll() {
 
   // 节流，一段时间执行一次
   const scroll = throttle(() => {
-    scrollTop.value = Math.round(document.documentElement.scrollTop)
+    scrollTop.value = document.documentElement.scrollTop
     scrollHeight.value = document.documentElement.scrollHeight
     clientHeight.value = document.documentElement.clientHeight
-    console.log(scrollTop.value, scrollHeight.value, clientHeight.value)
-    if (scrollTop.value + clientHeight.value >= scrollHeight.value) {
+    if (scrollTop.value + clientHeight.value >= scrollHeight.value - 1) {
       isReachBottom.value = true
     }
   }, 100)

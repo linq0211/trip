@@ -32,7 +32,6 @@ import { storeToRefs } from 'pinia';
 import cityGroup from "./cpns/cityGroup.vue"
 
 const router = useRouter()
-
 const searchValue = ref("")
 const tabActive = ref()
 
@@ -51,9 +50,7 @@ const { allCities } = storeToRefs(cityStore)
  *  获取正确的key，将tabs的tabActive正确绑定
  * 通过key从allCities中获取数据，默认直接获取的不是响应式的，包裹computed方法，当内部依赖发生变化时重新进行计算
 */
-const currentGroup = computed(() => allCities.value[tabActive.value])
-
-
+// const currentGroup = computed(() => allCities.value[tabActive.value])
 
 </script>
 

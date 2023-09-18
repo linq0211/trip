@@ -12,12 +12,3 @@
 body {
   font-size: 14px;
 }
-
-/* 某些页面需要隐藏底部tarbar时使用 */
-.hideTarBar {
-  height: 100vh;
-  position: relative;
-  z-index: 10;
-  background-color: #fff;
-  overflow-y: auto;
-}

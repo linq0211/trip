@@ -24,7 +24,6 @@ import useCityStore from "@/store/modules/city"
 
 const router = useRouter()
 const cityStore = useCityStore()
-
 const props = defineProps({
   groupData: {
     type: Object,
@@ -45,7 +44,7 @@ const selectCity = (city) => {
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .hot {
   display: flex;
   flex-wrap: wrap;

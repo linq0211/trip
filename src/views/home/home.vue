@@ -1,9 +1,6 @@
 <template>
   <div class="home">
     <home-navbar></home-navbar>
-    <div class="banner">
-      <img src="@/assets/img/home/banner.webp">
-    </div>
     <home-search-box></home-search-box>
     <home-category></home-category>
     <div class="searchBar" v-if="isShowSearchBar">
@@ -39,7 +36,7 @@
     }
   })
 
-  // 搜索框
+  // window窗口滚动到一定位置时，顶部展示搜索框
   const isShowSearchBar = computed(() => {
     return scrollTop.value >= 360
   })
@@ -48,13 +45,9 @@
 
 <style lang="less" scoped>
 .home {
-  padding-bottom: 60px;
+  padding-bottom: 40px;
 }
-.banner {
-    img {
-      width: 100%;
-    }
-  }
+
 .searchBar {
   position: fixed;
   z-index: 100;
