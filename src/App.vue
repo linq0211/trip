@@ -1,7 +1,11 @@
 <template>
   <div class="app">
-    <router-view></router-view>
-    <tar-bar v-if="!$route.meta.hideTarBar"></tar-bar>
+    <router-view v-slot="props">
+      <keep-alive include="home">
+        <component :is="props.Component"></component>
+      </keep-alive>
+    </router-view>
+    <tar-bar v-show="!$route.meta.hideTarBar"></tar-bar>
     <loading></loading>
   </div>
 </template>

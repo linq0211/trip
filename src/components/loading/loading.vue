@@ -30,7 +30,7 @@ const mainStore = useMainStore()
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("@/assests/img/home/loading-bg.png") 0 0 100% 100%;
+    background: url("@/assets/img/home/loading-bg.png") 0 0 100% 100%;
     img {
       width: 70px;
       height: 70px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-navbar></home-navbar>
     <home-search-box></home-search-box>
     <home-category></home-category>
@@ -10,6 +10,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "home"
+}
+</script>
+
 <script setup>
   import homeSearchBox from './cpns/homeSearchBox.vue'
   import homeNavbar from './cpns/homeNavbar.vue'
@@ -18,7 +24,7 @@
   import homeContent from './cpns/homeContent.vue'
   import useScroll from '@/hooks/useScroll'
   import searchBar from '@/components/search-bar/search-bar.vue'
-  import { computed, watch } from 'vue'
+  import { computed, watch, ref, onActivated } from 'vue'
 
   // 发送首页的网络请求
   const homestore = useHomeStore()
@@ -27,7 +33,8 @@
   homestore.fetchHouseList()
 
   // 监听window窗口滚动
-  const { isReachBottom, scrollTop } = useScroll()
+  const homeRef = ref()
+  const { isReachBottom, scrollTop } = useScroll(homeRef)
   watch(isReachBottom, (newValue) => {
     if (newValue) {
       homestore.fetchHouseList().then(res => {
@@ -41,11 +48,21 @@
     return scrollTop.value >= 360
   })
 
+  onActivated(() => {
+    homeRef.value.scrollTo({
+      top: scrollTop.value
+    })
+  })
+  
+
 </script>
 
 <style lang="less" scoped>
 .home {
   padding-bottom: 40px;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .searchBar {
