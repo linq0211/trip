@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useCityStore from "@/store/modules/city"
 import { storeToRefs } from 'pinia';

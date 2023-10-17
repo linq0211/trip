@@ -50,11 +50,11 @@
 </template>
 
 <script setup>
-import useCityStore from "@/store/modules/city";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router"
 import { formatMonthDay, getDiffDays } from "@/utils/formatMonthDay"
 import useHomeStore from "@/store/modules/home";
+import useCityStore from "@/store/modules/city";
 import { storeToRefs } from "pinia";
 
 // 获取路由和状态管理

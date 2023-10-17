@@ -17,14 +17,15 @@ export default {
 </script>
 
 <script setup>
-  import homeSearchBox from './cpns/homeSearchBox.vue'
+  import { computed, watch, ref, onActivated } from 'vue'
   import homeNavbar from './cpns/homeNavbar.vue'
-  import useHomeStore from "@/store/modules/home"
+  import homeSearchBox from './cpns/homeSearchBox.vue'
   import homeCategory from "./cpns/homeCategory.vue"
   import homeContent from './cpns/homeContent.vue'
-  import useScroll from '@/hooks/useScroll'
   import searchBar from '@/components/search-bar/search-bar.vue'
-  import { computed, watch, ref, onActivated } from 'vue'
+  import useHomeStore from "@/store/modules/home"
+  import useScroll from '@/hooks/useScroll'
+
 
   // 发送首页的网络请求
   const homestore = useHomeStore()
@@ -48,12 +49,12 @@ export default {
     return scrollTop.value >= 360
   })
 
+  // 从其他页面进行回退时，保持原有的滚动位置
   onActivated(() => {
     homeRef.value.scrollTo({
       top: scrollTop.value
     })
   })
-  
 
 </script>
 

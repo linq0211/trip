@@ -13,10 +13,7 @@
 <script setup>
 import tarBar from "./components/tar-bar/tar-bar.vue"
 import Loading from "./components/loading/loading.vue"
-
 </script>
 
-
 <style scoped>
-
 </style>

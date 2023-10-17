@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import HouseSection from '@/components/house-section/houseSection.vue'
 
 defineProps({
@@ -26,8 +25,6 @@ defineProps({
     default: () => ({})
   }
 })
-
-const showTips = ref(false)
 
 </script>
 
